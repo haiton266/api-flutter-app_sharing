@@ -1,6 +1,6 @@
 from flask import Blueprint, send_from_directory
 from .services import (add_image_service, get_all_image_service,
-                       get_latest_images_service, delete_image_service, update_image_service)
+                       get_latest_images_service, delete_image_service, update_image_service, get_by_id_image_service, get_by_sbj_service)
 import os
 images = Blueprint("images", __name__)
 
@@ -13,6 +13,16 @@ def add_image():
 @images.route("/image/all", methods=['GET'])
 def get_all_image():
     return get_all_image_service()
+
+
+@images.route("/image/<int:id>", methods=['GET'])
+def get_by_id_image(id):
+    return get_by_id_image_service(id)
+
+
+@images.route("/image/<string:sbj>", methods=['GET'])
+def get_by_sbj(sbj):
+    return get_by_sbj_service(sbj)
 
 
 @images.route("/image/latest", methods=['GET'])

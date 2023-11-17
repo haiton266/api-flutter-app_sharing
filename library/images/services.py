@@ -89,6 +89,33 @@ def get_all_image_service():
         return jsonify({"message": "Not found url!"})
 
 
+def get_by_id_image_service(id):
+    images = Image_data.query.get(id)
+    if images:
+        return image_schema.jsonify(images)
+    else:
+        return jsonify({"message": "Not found url!"})
+
+
+def get_by_sbj_service(sbj):
+    Subject = {
+        'giaitich': 'Giải tích',
+        'laptrinh': 'Lập trình',
+        'dientu': 'Điện tử',
+        'vatly': 'Vật lý',
+        'vienthong': 'Viễn thông',
+        'nhung': 'Nhúng'
+    }
+    # Assuming Image_data is your SQLAlchemy model
+    images = Image_data.query.filter_by(name=Subject.get(sbj)).all()
+
+    if images:
+        # Assuming images_schema is a Marshmallow schema
+        return images_schema.jsonify(images)
+    else:
+        return jsonify({"message": "Not found url!"})
+
+
 def get_latest_images_service():
     # Lấy 10 bản ghi mới nhất
     images = Image_data.query.order_by(Image_data.id.desc()).limit(10).all()
