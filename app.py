@@ -3,10 +3,7 @@ from library.extension import db
 from flask_mysqldb import MySQL
 # from library.model import Users,Sensor_data,Mobileapp_data,Log_data
 from library.users.controller import users
-from library.admin.controller import admin
-from library.total_price.controller import totals_data
 from library.feedback.controller import feedbacks_data
-from library.customer.controller import Customers_data
 from library.images.controller import images
 # from library.sensor_data.controller import sensors_data
 from flask_jwt_extended import JWTManager
@@ -35,9 +32,6 @@ def create_app():
 if __name__ == "__main__":
     app.register_blueprint(images)
     app.register_blueprint(users)
-    app.register_blueprint(admin)
-    app.register_blueprint(totals_data)
     app.register_blueprint(feedbacks_data)
-    app.register_blueprint(Customers_data)
     # app.register_blueprint(sensors_data)
     app.run(debug=True)

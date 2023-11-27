@@ -30,9 +30,10 @@ def add_image_service():
     name = request.form.get('name')
     type = request.form.get('type')
     school = request.form.get('school')
+    username = request.form.get('username')
     try:
         new_image_data = Image_data(
-            pdf_url, name, type, school)
+            pdf_url, name, type, school, username)
         db.session.add(new_image_data)
         db.session.commit()
         return jsonify({"message": "Upload image successful!"}), 200
@@ -107,7 +108,7 @@ def get_by_sbj_service(sbj):
         'nhung': 'Nhúng'
     }
     # Assuming Image_data is your SQLAlchemy model
-    images = Image_data.query.filter_by(name=Subject.get(sbj)).all()
+    images = Image_data.query.filter_by(type=Subject.get(sbj)).all()
 
     if images:
         # Assuming images_schema is a Marshmallow schema
